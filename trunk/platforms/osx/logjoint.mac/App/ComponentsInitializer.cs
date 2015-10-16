@@ -228,7 +228,8 @@ namespace LogJoint.UI
 
 				new UI.LogsPreprocessorUI(
 					logSourcesPreprocessings,
-					null, //credentialsCacheStorage, todo
+					mainWindow.Window,
+					storageManager.GlobalSettingsEntry,
 					statusReportPresenter
 				);
 

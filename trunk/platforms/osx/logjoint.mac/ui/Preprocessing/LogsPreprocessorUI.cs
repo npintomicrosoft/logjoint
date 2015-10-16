@@ -13,14 +13,17 @@ namespace LogJoint.UI
 		readonly object credentialCacheLock = new object();
 		NetworkCredentialsStorage credentialCache = null;
 		Presenters.StatusReports.IPresenter statusReports;
+		NSWindow parentWindow;
 
 		public LogsPreprocessorUI(
 			Preprocessing.ILogSourcesPreprocessingManager logSourcesPreprocessings, 
+			NSWindow parentWindow,
 			Persistence.IStorageEntry credentialsCacheStorage, 
 			Presenters.StatusReports.IPresenter statusReports)
 		{
 			this.credentialsCacheStorage = credentialsCacheStorage;
 			this.statusReports = statusReports;
+			this.parentWindow = parentWindow;
 			logSourcesPreprocessings.SetUserRequestsHandler(this);
 		}
 
@@ -33,6 +36,7 @@ namespace LogJoint.UI
 				var cred = credentialCache.GetCredential(uri);
 				if (cred != null)
 					return cred;
+				NetworkCredentialsDialogController.ShowSheet(parentWindow);
 				//using (var dlg = new CredentialsDialog())
 				//{
 			//		var ret = CredUIUtils.ShowCredentialsDialog(appWindow.Handle,

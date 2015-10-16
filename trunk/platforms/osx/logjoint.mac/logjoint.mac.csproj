@@ -82,6 +82,7 @@
     <Folder Include="ui\Preprocessing\" />
     <Folder Include="Properties\" />
     <Folder Include="AutoUpdate\" />
+    <Folder Include="ui\Preprocessing\NetworkCredentialsDialog\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ui\MainWindow\MainWindow.cs" />
@@ -192,6 +193,11 @@
     <Compile Include="Properties\Settings.cs" />
     <Compile Include="AutoUpdate\AzureUpdateDownloader.cs" />
     <Compile Include="Telemetry\ConfiguredAzureTelemetryUploader.cs" />
+    <Compile Include="ui\Preprocessing\NetworkCredentialsDialog\NetworkCredentialsSheet.cs" />
+    <Compile Include="ui\Preprocessing\NetworkCredentialsDialog\NetworkCredentialsSheet.designer.cs">
+      <DependentUpon>NetworkCredentialsSheet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ui\Preprocessing\NetworkCredentialsDialog\NetworkCredentialsSheetController.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="ui\MainWindow\MainMenu.xib" />
@@ -207,6 +213,7 @@
     <InterfaceDefinition Include="ui\BookmarksManagementControl\BookmarksManagementControl.xib" />
     <InterfaceDefinition Include="ui\SearchResultsControl\SearchResultsControl.xib" />
     <InterfaceDefinition Include="ui\Preprocessing\FilesSelectionDialog.xib" />
+    <InterfaceDefinition Include="ui\Preprocessing\NetworkCredentialsDialog\NetworkCredentialsSheet.xib" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
