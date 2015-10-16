@@ -24,6 +24,9 @@ namespace LogJoint.UI
 		[Outlet]
 		LogJoint.UI.NetworkCredentialsSheet window { get; set; }
 
+		[Action ("foo:")]
+		partial void foo (MonoMac.Foundation.NSObject sender);
+
 		[Action ("OnCancelled:")]
 		partial void OnCancelled (MonoMac.Foundation.NSObject sender);
 

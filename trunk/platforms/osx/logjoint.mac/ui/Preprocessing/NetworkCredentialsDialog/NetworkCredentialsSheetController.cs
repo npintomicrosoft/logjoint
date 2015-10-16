@@ -6,16 +6,15 @@ namespace LogJoint.UI
 {
 	public class NetworkCredentialsDialogController: NSObject
 	{
+		string site;
 		bool confirmed;
 
-
-		public static bool ShowSheet(NSWindow inWindow) 
+		public static bool ShowSheet(NSWindow inWindow, string site) 
 		{
-			var dlg = new NetworkCredentialsDialogController();
+			var dlg = new NetworkCredentialsDialogController(site);
 			NSApplication.SharedApplication.BeginSheet (dlg.Window, inWindow);
 			return dlg.confirmed;				
 		}
-
 
 		[Export("window")]
 		public NetworkCredentialsSheet Window { get; set;}
@@ -31,22 +30,30 @@ namespace LogJoint.UI
 
 	
 		[Export ("OnCancelled:")]
-		void OnCancelled(NSObject sender)
+		public void OnCancelled(NSObject sender)
 		{
 			confirmed = false;
 			CloseSheet();
 		}
 
 		[Export ("OnConfirmed:")]
-		void OnConfirmed(NSObject sender)
+		public void OnConfirmed(NSObject sender)
 		{
 			confirmed = false;
 			CloseSheet();
 		}
 
-		NetworkCredentialsDialogController()
+		NetworkCredentialsDialogController(string site)
 		{
-			NSBundle.LoadNib ("FilesSelectionDialog", this);
+			this.site = site;
+			NSBundle.LoadNib ("NetworkCredentialsSheet", this);
+		}
+
+		public override void AwakeFromNib()
+		{
+			base.AwakeFromNib();
+
+			captionLabel.StringValue = site; 
 		}
 			
 		void CloseSheet() 
