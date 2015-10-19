@@ -36,19 +36,12 @@ namespace LogJoint.UI
 				var cred = credentialCache.GetCredential(uri);
 				if (cred != null)
 					return cred;
-				NetworkCredentialsDialogController.ShowSheet(parentWindow, NetworkCredentialsStorage.StripToPrefix(uri).ToString());
-				//using (var dlg = new CredentialsDialog())
-				//{
-			//		var ret = CredUIUtils.ShowCredentialsDialog(appWindow.Handle,
-				//		NetworkCredentialsStorage.StripToPrefix(uri).ToString());
-				//	if (ret == null)
-				//		return null;
-				//	credentialCache.Add(uri, ret);
-				//	credentialCache.StoreSecurely();
-				//	return ret;
-				//}
-				// todo
-				return null;
+				var ret = NetworkCredentialsDialogController.ShowSheet(parentWindow, NetworkCredentialsStorage.StripToPrefix(uri).ToString());
+				if (ret == null)
+					return null;
+				credentialCache.Add(uri, ret);
+				credentialCache.StoreSecurely();
+				return ret;
 			}
 		}
 

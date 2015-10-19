@@ -1,6 +1,7 @@
 ﻿using System;
 using MonoMac.Foundation;
 using MonoMac.AppKit;
+using System.Net;
 
 namespace LogJoint.UI
 {
@@ -9,11 +10,14 @@ namespace LogJoint.UI
 		string site;
 		bool confirmed;
 
-		public static bool ShowSheet(NSWindow inWindow, string site) 
+		public static NetworkCredential ShowSheet(NSWindow inWindow, string site) 
 		{
 			var dlg = new NetworkCredentialsDialogController(site);
 			NSApplication.SharedApplication.BeginSheet (dlg.Window, inWindow);
-			return dlg.confirmed;				
+			NSApplication.SharedApplication.RunModalForWindow(dlg.Window);
+			if (!dlg.confirmed)
+				return null;
+			return new NetworkCredential(dlg.userNameTextField.StringValue, dlg.passwordTextField.StringValue);
 		}
 
 		[Export("window")]
@@ -39,7 +43,7 @@ namespace LogJoint.UI
 		[Export ("OnConfirmed:")]
 		public void OnConfirmed(NSObject sender)
 		{
-			confirmed = false;
+			confirmed = true;
 			CloseSheet();
 		}
 
@@ -60,6 +64,7 @@ namespace LogJoint.UI
 		{
 			NSApplication.SharedApplication.EndSheet (Window);
 			Window.Close();
+			NSApplication.SharedApplication.StopModal();
 		}
 	}
 }
